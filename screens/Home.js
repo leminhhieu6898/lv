@@ -1,57 +1,62 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
 import FusionCharts from "react-native-fusioncharts";
+import * as Animatable from 'react-native-animatable';
 
-export default class WorldMap extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     //STEP 2 - Define the dataset and the colorRange of the map
     const dataset = [{
-      "id": "VN.VL",
+      "id": "VN.MD.VL",
       "value": "10",
       "showLabel": "1"
       }, {
-      "id": "VN.AG",
+      "id": "VN.MD.AG",
       "value": "15",
       "showLabel": "1"
       }, {
-      "id": "VN.KG",
+      "id": "VN.MD.KG",
       "value": "50",
       "showLabel": "1"
       }, {
-      "id": "VN.TG",
+      "id": "VN.MD.TG",
       "value": "20",
       "showLabel": "1"
       }, {
-      "id": "VN.CN",
+      "id": "VN.MD.CN",
       "value": "23",
       "showLabel": "1"
       }, {
-      "id": "VN.BL",
+      "id": "VN.MD.BL",
       "value": "30",
       "showLabel": "1"
       }, {
-      "id": "VN.BR",
+      "id": "VN.MD.BR",
       "value": "45",
       "showLabel": "1"
       }, {
-      "id": "VN.CM",
+      "id": "VN.MD.CM",
       "value": "27",
       "showLabel": "1"
       }, {
-      "id": "VN.ST",
+      "id": "VN.MD.ST",
       "value": "16",
       "showLabel": "1"
       }, {
-      "id": "VN.HU",
+      "id": "VN.MD.HU",
       "value": "25",
       "showLabel": "1"
       }, {
-      "id": "VN.DT",
+      "id": "VN.MD.LA",
+      "value": "22",
+      "showLabel": "1"
+      }, {
+      "id": "VN.MD.DT",
       "value": "34",
       "showLabel": "1"
       }, {
-      "id": "VN.TV",
+      "id": "VN.MD.TV",
       "value": "28",
       "showLabel": "1"
     }];
@@ -85,7 +90,7 @@ export default class WorldMap extends Component {
     };
     //STEP 3 - Chart Configurations
     const chartConfig = {
-      type: "maps/vietnam",
+      type: "maps/MekongRiverDelta",
       width: "100%",
       height: "400",
       dataFormat: "json",
@@ -111,12 +116,13 @@ export default class WorldMap extends Component {
       android: {
         uri: "file:///android_asset/fusioncharts.html"
       },
-      ios: require("./assets/fusioncharts.html")
+      //ios: require("./assets/fusioncharts.html")
     });
   }
   render() {
     return (
-      <View style={styles.container}>
+        <ScrollView>
+      <Animatable.View style={styles.container}>
         <View style={styles.chartContainer}>
           <FusionCharts
             type={this.state.type}
@@ -128,7 +134,21 @@ export default class WorldMap extends Component {
           />
           <Text style={styles.title}>Bản đồ phân bố hạn hán ĐBSCL</Text>
         </View>
-      </View>
+        </Animatable.View>
+        <Animatable.View style={styles.container}>
+        <View style={styles.chartContainer}>
+          <FusionCharts
+            type={this.state.type}
+            width={this.state.width}
+            height={this.state.height}
+            dataFormat={this.state.dataFormat}
+            dataSource={this.state.dataSource}
+            libraryPath={this.libraryPath} // set the libraryPath property
+          />
+          <Text style={styles.title}>Bản đồ phân bố hạn hán ĐBSCL</Text>
+        </View>
+      </Animatable.View>
+        </ScrollView>
     );
   }
 }
@@ -137,7 +157,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-    padding: 10
+    padding: 10,
+    paddingBottom: 50
   },
 
   header: {
